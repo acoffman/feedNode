@@ -7,17 +7,14 @@ html(lang="en")
     script(type="text/javascript", src="http://cdn.socket.io/stable/socket.io.js")
     script(type="text/javascript", src="/feed.js")
 	body
-		#container
-			#header
-				h1 Confab IRC Client
-			#columns
-				#channels.sidebar
-					h2 Channels
-				#chatroom
-					#chat
-					#message
-						span Username
-						form#new_message
-							input(type="text",name="message")
-				#users.sidebar
-					h2 Users
+    #heading
+      h1 News Feed
+    #content
+      #categories
+        ul#category_list
+          li category 1
+      #feed
+        ul#feed_list
+          li feed item 1
+    #footer
+      a(href="http://thecoffman.com") adam coffman made this
