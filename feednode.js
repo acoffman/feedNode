@@ -1,3 +1,25 @@
+var fs = require('fs');
+var filename = process.argv[2];
+
+//fail fast if no arg was specified
+if(filename == null){
+  console.error("You must enter the filename of your configuration file!");
+  process.exit(1);
+}
+
+//read in configuration - we want synchronous so that everything is loaded before the server starts listening
+try{
+  var applicationFile = JSON.parse(fs.readFileSync(filename,'utf8'));
+  var applications = new Array();
+  applicationFile.forEach(function(app){
+    applications[app.Token] = app;
+  });
+}catch(err){
+  console.error(err.stack)
+  console.error('Make sure the specified file exists and that it is formatted correctly!');
+  process.exit(1);
+}
+
 var app = require('express').createServer();
 var socket = require('socket.io').listen(app);
 
