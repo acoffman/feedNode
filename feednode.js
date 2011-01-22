@@ -11,8 +11,12 @@ if(filename == null){
 try{
   var applicationFile = JSON.parse(fs.readFileSync(filename,'utf8'));
   var applications = new Array();
+  //clients don't need tokens - only name/color
+  var clientSideAppList = new Array();
+
   applicationFile.forEach(function(app){
     applications[app.Token] = app;
+    clientSideAppList.push({Name:app.Name, Color:app.Color})
   });
 }catch(err){
   console.error(err.stack)
@@ -22,9 +26,9 @@ try{
 
 var app = require('express').createServer();
 var socket = require('socket.io').listen(app);
+var buffer = new Array();
 
 require('jade');
-
 app.set('view engine', 'jade');
 app.set('view options', {layout: false});
 
@@ -39,7 +43,7 @@ app.get('/', function(req, res){
 
 app.post('/:token/:msg', function(req, res){
   if(applications[req.params.token]){
-    console.log(req.params.msg);
+    buffer.unshift({category:applications[req.params.token],item:req.params.msg})
     res.send('yup',200) 
   }else{
     res.send('nope',403)
@@ -54,12 +58,15 @@ function clientDisconnect(client){
 }
 
 function sendNewItems(){
-  socket.broadcast({item:"<li>test item</li>", category:"test category"}); 
+  if(next = buffer.pop()){ 
+    socket.broadcast(next); 
+  }
 }
 
 socket.on('connection', function(client){ 
   activeClients +=1;
   socket.broadcast({clients:activeClients})
+  client.send({apps:clientSideAppList})
   client.on('disconnect', function(){clientDisconnect(client)});
 }); 
 

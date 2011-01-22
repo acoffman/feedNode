@@ -1,9 +1,9 @@
 var MAX_ITEMS = 5;
 var ITEMS = 0;
 
-function fadeInOneItem(item, list){
+function fadeInOneItem(msg, list){
   //add to top of list as invisible
-  var $inserted = $(item).css({
+  var $inserted = $('<li class='+msg.category+'>'+msg.item+'</li>').css({
     display: 'none',
       opacity : 0,
       marginBottom: 0
@@ -26,7 +26,15 @@ function msgReceived(msg){
   if(msg.clients)
     $clientCounter.html(msg.clients);
   else if(msg.item)
-    fadeInOneItem(msg.item,$list);
+    fadeInOneItem(msg,$list);
+  else if(msg.apps){
+    styles = "<style type='text/css'>"   
+    msg.apps.forEach(function (app){
+      styles = styles + " ." + app.Name + " {color:"+app.Color+";}"
+      $categories.append('<li class='+app.Name +'>' + app.Name + '</li>');
+    });
+    $(styles + '</style>').appendTo('head');
+  }
 }
 
 $(document).ready(function () {
