@@ -1,7 +1,7 @@
 %w(curb uri).each{|lib| require lib}
 
 class FeedNodeClient
-  def initialize(server,app_token ,port=nil)
+  def initialize(server,app_token)
     @target = "http://#{server}/#{app_token}/"
   end
 
