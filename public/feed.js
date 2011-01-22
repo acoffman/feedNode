@@ -30,7 +30,7 @@ function msgReceived(msg){
   else if(msg.apps){
     styles = "<style type='text/css'>"   
     msg.apps.forEach(function (app){
-      styles = styles + " ." + app.Name + " {color:"+app.Color+";}"
+      styles = styles + ' .' + app.Name + ' {color:'+app.Color+';}'
       $categories.append('<li class='+app.Name +'>' + app.Name + '</li>');
     });
     $(styles + '</style>').appendTo('head');
