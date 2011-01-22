@@ -37,6 +37,15 @@ app.get('/', function(req, res){
 	res.render('index');	
 });
 
+app.post('/:token/:msg', function(req, res){
+  if(applications[req.params.token]){
+    console.log(req.params.msg);
+    res.send('yup',200) 
+  }else{
+    res.send('nope',403)
+  }
+});
+
 var activeClients = 0;
 
 function clientDisconnect(client){
