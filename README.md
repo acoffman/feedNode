@@ -33,7 +33,7 @@ Make sure you URI escape your message.
 Security
 -------
 
-As stated earlier - this app isn't suitable for a production environment yet. No attempt was made to ensure the security of the app and thusly there are several possible exploits. For starters the POST data is in the URL rather than the body and is not sent over https therefore anyone with a packet sniffer and 2 minutes of time could discern your "secret" application tokens and send messages to the server themselves. Additionally no attempts were made to escapge messages sent in to the server - they will be added to the DOMs of the client pages essentially "as is" opening up all sorts of fun injection avenues. Making the changes needed to close these holes wouldn't be difficult - but wasn't nesscary for my purposes.
+As stated earlier - this app isn't suitable for a production environment yet. No attempt was made to ensure the security of the app and thusly there are several possible exploits. For starters the POST data is in the URL rather than the body and is not sent over https therefore anyone with a packet sniffer and 2 minutes of time could discern your "secret" application tokens and send messages to the server themselves. Additionally no attempts were made to escape messages sent in to the server - they will be added to the DOMs of the client pages essentially "as is" opening up all sorts of fun injection avenues. Making the changes needed to close these holes wouldn't be difficult - but wasn't necessary for my purposes.
 
 Author
 -------
