@@ -3,10 +3,9 @@
 What is this?
 ---------------
 
-This is a newsfeed application created using node.js and socket.io. It is meant to be used as an internal company newsfeed. 
-The ultimate goal is to allow services internal to your company to send categorized messages to the node server where they will be sent to any viewing clients using socket.io powered "comet" requests.
+This is a demo newsfeed application created using node.js and socket.io. It was created out of a desire to learn how both technologies worked. It is not yet suitable for use in a production environment - but it provides a decent overview of how to set up and create a node.js application that uses socket.io for "comet" style data pushing.
 
-This app is currently under development and is not yet functional.
+In its current form the application allows for clients to POST messages to the server using an application specific key and those messages will in turn be pushed out to all clients viewing the news feed and color coded according to the application that sent them. 
 
 
 Installation
@@ -25,8 +24,16 @@ Install the following node.js plugins. You can either use npm or install them ma
 Usage
 ------------
 
-coming once the app works
+Any client that can send a POST request can send messages to the newsfeed. There is a sample ruby client included in the source.
 
+In order to add an application to the server you must add an entry in the applications.json file. There you will give your application a name, a token and a display color. Once the server is started up you may send messages to it in the following format: POST http://server/application token/message
+Make sure you URI escape your message.
+
+
+Security
+-------
+
+As stated earlier - this app isn't suitable for a production environment yet. No attempt was made to ensure the security of the app and thusly there are several possible exploits. For starters the POST data is in the URL rather than the body and is not sent over https therefore anyone with a packet sniffer and 2 minutes of time could discern your "secret" application tokens and send messages to the server themselves. Additionally no attempts were made to escapge messages sent in to the server - they will be added to the DOMs of the client pages essentially "as is" opening up all sorts of fun injection avenues. Making the changes needed to close these holes wouldn't be difficult - but wasn't nesscary for my purposes.
 
 Author
 -------

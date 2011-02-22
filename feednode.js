@@ -43,7 +43,7 @@ app.get('/', function(req, res){
 
 app.post('/:token/:msg', function(req, res){
   if(applications[req.params.token]){
-    buffer.unshift({category:applications[req.params.token],item:req.params.msg})
+    buffer.unshift({category:applications[req.params.token].Name ,item:req.params.msg})
     res.send('yup',200) 
   }else{
     res.send('nope',403)
